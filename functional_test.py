@@ -31,13 +31,13 @@ class HomePageTest(unittest.TestCase):
         # two radio button to select answer
         # and create button
         question_text = self.browser.find_element_by_id('question')
-        self.assertEqual(qustion_text.getattribute('placeholder', 'Enter Question'))
+        self.assertEqual(question_text.get_attribute('placeholder'), 'Enter Question')
 
         ans_true = self.browser.find_element_by_id('ans_t')
-        self.assertEqual(qustion_text.getattribute('value', 'True'))
+        self.assertEqual(ans_true.get_attribute('value'), 'True')
 
         ans_false = self.browser.find_element_by_id('ans_f')
-        self.assertEqual(qustion_text.getattribute('value', 'False'))
+        self.assertEqual(ans_false.get_attribute('value'), 'False')
 
 
 
