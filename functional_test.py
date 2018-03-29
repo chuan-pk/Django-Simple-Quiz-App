@@ -39,6 +39,14 @@ class HomePageTest(unittest.TestCase):
         ans_false = self.browser.find_element_by_id('ans_f')
         self.assertEqual(ans_false.get_attribute('value'), 'False')
 
+        add_question_button = self.browser.find_element_by_id('add_btn')
+
+        heading2 = self.browser.find_element_by_tag_name('h2')
+        self.assertIn('Question', heading2.text)
+        # she see the question table
+        question_table =  self.browser.find_element_by_id('question_table')
+
+
 
 
         self.fail('Finished the test!')
