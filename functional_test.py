@@ -46,7 +46,29 @@ class HomePageTest(unittest.TestCase):
         # she see the question table
         question_table =  self.browser.find_element_by_id('question_table')
 
+        # she want to add Question
+        # She input the question text
+        # she select the question answer
+        # she click add button to create the question
 
+        question_text.send_keys('1 + 1 = 2')
+        ans_true.click()
+        add_question_button.click()
+
+        time.sleep(1)
+        # she see the question in question_table
+
+        question_text = self.browser.find_element_by_id('question')
+        ans_true = self.browser.find_element_by_id('ans_t')
+        ans_false = self.browser.find_element_by_id('ans_f')
+        add_question_button = self.browser.find_element_by_id('add_btn')
+        table = self.browser.find_element_by_id('question_table')
+        rows = self.browser.find_elements_by_tag_name('tr')
+        rows_texts = [row.text for row in rows]
+
+        self.assertTrue(
+            any('1 + 1 = 2' in i for i in  rows_texts)
+            )
 
 
         self.fail('Finished the test!')

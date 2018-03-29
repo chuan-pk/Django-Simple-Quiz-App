@@ -10,11 +10,12 @@
         <input type="radio" name="ans" id="ans_f" value="False">False</input><br>
 
         <button id="add_btn">Add</button>
+        {% csrf_token %}
     </form><br>
 
     <h2> Question </h2>
     <table id="question_table">
-
+        <tr> <td> {{ question }} </td> </tr>
     </table>
 </body>
 </html>
