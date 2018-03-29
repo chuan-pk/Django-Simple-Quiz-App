@@ -25,6 +25,7 @@ class HomePageTest(unittest.TestCase):
 
         # She see the input box to create question
 
+        self.fail('Finished the test!')
 
 if __name__ == '__main__':
     unittest.main(warnings='ignore')
