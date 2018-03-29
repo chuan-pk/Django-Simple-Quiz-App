@@ -14,6 +14,14 @@ class HomePageTest(TestCase):
         response = self.client.get('/')
         self.assertTemplateUsed(response, 'quiz/home.html')
 
+    def test_can_save_POST_to_DB(self):
+        response = self.client.post('/', data={'question_text':'1311 is integer', 'ans':'True'})
+
+        questions = Question.objects.all()
+        self.assertEqual(questions.count(), 1)
+        self.assertEqual(questions[0].text, '1311 is integer')
+        self.assertEqual(questions[0].ans, 'True')
+
 class ModelsTest(TestCase):
 
     def test_can_save_question_to_database(self):
