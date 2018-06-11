@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from quiz.models import Question
 
 # Create your views here.
@@ -13,5 +13,5 @@ def home_page(request):
 
         return redirect('/')
 
-    questions = Question.objects.all() 
-    return render(request, 'quiz/home.html', {'question':questions})
+    questions = Question.objects.all()
+    return render(request, 'quiz/home.html', {'questions':questions})
