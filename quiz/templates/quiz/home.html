@@ -16,7 +16,17 @@
     <h2> Question </h2>
     <table id="question_table">
         {% for question in questions%}
-        <tr> <td> {{ question.text }} </td> </tr>
+        <tr> 
+            <td><b style="font-size: 20px"> {{ question.text }} </b> <br>  
+            <b> answer correct people: {{question.correct_count}}, answer people: {{question.count}}</b>
+                <form>
+                    {% csrf_token %}
+                    <input type="radio" name="ans" id="ans_t" value="True">True</input><br>
+                    <input type="radio" name="ans" id="ans_f" value="False">False</input><br>
+                    <button id="submit_btn">Submit</button>
+                </form>
+            </td>
+        </tr>
         {% endfor %}
     </table>
 </body>

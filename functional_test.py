@@ -54,7 +54,7 @@ class HomePageTest(unittest.TestCase):
         ans_true.click()
         add_question_button.click()
 
-        time.sleep(5)
+        time.sleep(1)
         # she see the question in question_table
 
         question_text = self.browser.find_element_by_id('question')
@@ -81,7 +81,7 @@ class HomePageTest(unittest.TestCase):
         ans_false.click()
         add_question_button.click()
 
-        time.sleep(5)
+        time.sleep(2)
         # she see 2 questions in question_table
         question_text = self.browser.find_element_by_id('question')
         ans_true = self.browser.find_element_by_id('ans_t')
