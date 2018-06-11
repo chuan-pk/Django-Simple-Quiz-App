@@ -56,7 +56,6 @@ class HomePageTest(unittest.TestCase):
 
         time.sleep(1)
         # she see the question in question_table
-
         question_text = self.browser.find_element_by_id('question')
         ans_true = self.browser.find_element_by_id('ans_t')
         ans_false = self.browser.find_element_by_id('ans_f')
@@ -64,10 +63,16 @@ class HomePageTest(unittest.TestCase):
         table = self.browser.find_element_by_id('question_table')
         rows = table.find_elements_by_tag_name('tr')
         rows_texts = [row.text for row in rows]
-
         self.assertTrue(
-            any('1 + 1 = 2' in i for i in  rows_texts)
+            any('1 + 1 = 2' 
+                and 'answer correct people: 0' 
+                and  'answer people: 0' in i for i in rows_texts)
             )
+
+        # she see the radio button and submit button of first question
+        ans_true1 = self.browser.find_element_by_id('ans_t_1')
+        ans_false1 = self.browser.find_element_by_id('ans_f_1')
+        submit1 = self.browser.find_element_by_id('submit_btn_1')
 
 
         # she want to add another Question
@@ -91,16 +96,27 @@ class HomePageTest(unittest.TestCase):
         rows = table.find_elements_by_tag_name('tr')
         rows_texts = [row.text for row in rows]
 
+        # No one Ans question so Answer count = 0 and correct count = 0
         self.assertTrue(
-            any('1 + 1 = 2' in i for i in  rows_texts)
+            any('1 + 1 = 2' 
+                and 'answer correct people: 0' 
+                and 'answer people: 0' in i for i in rows_texts)
             )
 
+        # she see the radio button and submit button of first question
+        ans_true1 = self.browser.find_element_by_id('ans_t_1')
+        ans_false1 = self.browser.find_element_by_id('ans_f_1')
+        submit1 = self.browser.find_element_by_id('submit_btn_1')
+
         self.assertTrue(
-            any('2 < 1' in i for i in  rows_texts)
+            any('2 < 1' 
+                and 'answer correct people: 0' 
+                and 'answer people: 0' in i for i in rows_texts) 
             )
-
-
-
+        # she see the radio button and submit button of second question
+        ans_true1 = self.browser.find_element_by_id('ans_t_2')
+        ans_false1 = self.browser.find_element_by_id('ans_f_2')
+        submit1 = self.browser.find_element_by_id('submit_btn_2')
 
         self.fail('Finished the test!')
 

@@ -21,9 +21,9 @@
             <b> answer correct people: {{question.correct_count}}, answer people: {{question.count}}</b>
                 <form>
                     {% csrf_token %}
-                    <input type="radio" name="ans" id="ans_t" value="True">True</input><br>
-                    <input type="radio" name="ans" id="ans_f" value="False">False</input><br>
-                    <button id="submit_btn">Submit</button>
+                    <input type="radio" name="ans" id="ans_t_{{question.id}}" value="True">True</input><br>
+                    <input type="radio" name="ans" id="ans_f_{{question.id}}" value="False">False</input><br>
+                    <button id="submit_btn_{{question.id}}">Submit</button>
                 </form>
             </td>
         </tr>
