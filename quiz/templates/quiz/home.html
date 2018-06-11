@@ -15,7 +15,9 @@
 
     <h2> Question </h2>
     <table id="question_table">
-        <tr> <td> {{ question }} </td> </tr>
+        {% for question in questions%}
+        <tr> <td> {{ question.text }} </td> </tr>
+        {% endfor %}
     </table>
 </body>
 </html>
