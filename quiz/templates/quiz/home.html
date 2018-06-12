@@ -5,8 +5,8 @@
 <body>
     <h1>create question</h1>
     <form method="POST">
-        <input name="question_text" id="question" placeholder="Enter Question"></input><br>
-        <input type="radio" name="ans" id="ans_t" value="True">True</input><br>
+        <input name="question_text" id="question" placeholder="Enter Question" required></input><br>
+        <input type="radio" name="ans" id="ans_t" value="True" required>True</input><br>
         <input type="radio" name="ans" id="ans_f" value="False">False</input><br>
 
         <button id="add_btn">Add</button>
@@ -21,7 +21,7 @@
             <b>correct answer: {{question.correct_count}}, total answer: {{question.count}}</b>
                 <form method="POST" action="/ans/{{question.id}}">
                     {% csrf_token %}
-                    <input type="radio" name="ans" id="ans_t_{{question.id}}" value="True">True</input><br>
+                    <input type="radio" name="ans" id="ans_t_{{question.id}}" value="True" required>True</input><br>
                     <input type="radio" name="ans" id="ans_f_{{question.id}}" value="False">False</input><br>
                     <button id="submit_btn_{{question.id}}">Submit</button>
                 </form>
