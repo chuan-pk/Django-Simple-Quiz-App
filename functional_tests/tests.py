@@ -1,18 +1,20 @@
 from selenium import webdriver
-import unittest
+from django.test import LiveServerTestCase
 import time
 
-class HomePageTest(unittest.TestCase):
+class HomePageTest(LiveServerTestCase):
     def setUp(self):
         self.browser = webdriver.Firefox()
+        self.browser.implicitly_wait(3)
 
     def tearDown(self):
+        time.sleep(1)
         self.browser.quit()
 
     def test_01_can_create_question(self):
 
         # Editch check out the Quiz app homepage
-        self.browser.get('http://localhost:8000')
+        self.browser.get(self.live_server_url)
         # She see the browser title
         self.assertIn('Quiz', self.browser.title)
 
@@ -108,14 +110,16 @@ class HomePageTest(unittest.TestCase):
         submit1 = self.browser.find_element_by_id('submit_btn_2')
 
         # She left this website
+        self.browser.quit()
 
 
-    def test_02_can_answer_question(self):
+        ## The database torn down every test method 
+        ## So i move second method to this method
 
         # John go to website
-        self.browser.get('http://localhost:8000')
+        self.browser = webdriver.Firefox()
+        self.browser.get(self.live_server_url)
         self.assertIn('Quiz', self.browser.title)
-
 
         time.sleep(1)
         # He see 2 questions in question_table
@@ -168,5 +172,7 @@ class HomePageTest(unittest.TestCase):
 
         self.fail('Finished the test!')
 
+
+      
 if __name__ == '__main__':
-    unittest.main(warnings='ignore')
+    unittest.main(warnings='ignore')     # luanches the unittest test runner
