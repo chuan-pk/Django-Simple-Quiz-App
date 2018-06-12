@@ -19,7 +19,7 @@
         <tr> 
             <td><b style="font-size: 20px"> {{ question.text }} </b> <br>  
             <b> answer correct people: {{question.correct_count}}, answer people: {{question.count}}</b>
-                <form>
+                <form method="POST" action="/ans/{{question.id}}">
                     {% csrf_token %}
                     <input type="radio" name="ans" id="ans_t_{{question.id}}" value="True">True</input><br>
                     <input type="radio" name="ans" id="ans_f_{{question.id}}" value="False">False</input><br>

@@ -3,20 +3,13 @@ import unittest
 import time
 
 class HomePageTest(unittest.TestCase):
-    """
-        Test HomePage
-        home page = create question page
-        home page have link to ans question
-    """
-
     def setUp(self):
         self.browser = webdriver.Firefox()
 
     def tearDown(self):
-        time.sleep(1)
         self.browser.quit()
 
-    def test_can_create_question(self):
+    def test_01_can_create_question(self):
 
         # Editch check out the Quiz app homepage
         self.browser.get('http://localhost:8000')
@@ -64,9 +57,7 @@ class HomePageTest(unittest.TestCase):
         rows = table.find_elements_by_tag_name('tr')
         rows_texts = [row.text for row in rows]
         self.assertTrue(
-            any('1 + 1 = 2' 
-                and 'answer correct people: 0' 
-                and  'answer people: 0' in i for i in rows_texts)
+            any('1 + 1 = 2' and 'answer correct people: 0' and  'answer people: 0' in i for i in rows_texts)
             )
 
         # she see the radio button and submit button of first question
@@ -86,7 +77,7 @@ class HomePageTest(unittest.TestCase):
         ans_false.click()
         add_question_button.click()
 
-        time.sleep(2)
+        time.sleep(1)
         # she see 2 questions in question_table
         question_text = self.browser.find_element_by_id('question')
         ans_true = self.browser.find_element_by_id('ans_t')
@@ -98,9 +89,7 @@ class HomePageTest(unittest.TestCase):
 
         # No one Ans question so Answer count = 0 and correct count = 0
         self.assertTrue(
-            any('1 + 1 = 2' 
-                and 'answer correct people: 0' 
-                and 'answer people: 0' in i for i in rows_texts)
+            any('1 + 1 = 2' and 'answer correct people: 0' and 'answer people: 0' in i for i in rows_texts)
             )
 
         # she see the radio button and submit button of first question
@@ -109,14 +98,56 @@ class HomePageTest(unittest.TestCase):
         submit1 = self.browser.find_element_by_id('submit_btn_1')
 
         self.assertTrue(
-            any('2 < 1' 
-                and 'answer correct people: 0' 
-                and 'answer people: 0' in i for i in rows_texts) 
+            any('2 < 1' and 'answer correct people: 0' and 'answer people: 0' in i for i in rows_texts) 
             )
+
         # she see the radio button and submit button of second question
         ans_true1 = self.browser.find_element_by_id('ans_t_2')
         ans_false1 = self.browser.find_element_by_id('ans_f_2')
         submit1 = self.browser.find_element_by_id('submit_btn_2')
+
+        # She left this website
+
+
+    def test_02_can_answer_question(self):
+
+        # John go to website
+        self.browser.get('http://localhost:8000')
+        self.assertIn('Quiz', self.browser.title)
+
+
+        time.sleep(1)
+        # He see 2 questions in question_table
+        question_text = self.browser.find_element_by_id('question')
+        ans_true = self.browser.find_element_by_id('ans_t')
+        ans_false = self.browser.find_element_by_id('ans_f')
+        add_question_button = self.browser.find_element_by_id('add_btn')
+        table = self.browser.find_element_by_id('question_table')
+        rows = table.find_elements_by_tag_name('tr')
+        rows_texts = [row.text for row in rows]
+
+        # No one Ans question so Answer count = 0 and correct count = 0
+        self.assertTrue(
+            any('1 + 1 = 2' and 'answer correct people: 0' and 'answer people: 0' in i for i in rows_texts)
+            )
+
+        # He see the radio button and submit button of first question
+        ans_true1 = self.browser.find_element_by_id('ans_t_1')
+        ans_false1 = self.browser.find_element_by_id('ans_f_1')
+        submit1 = self.browser.find_element_by_id('submit_btn_1')
+
+        self.assertTrue(
+            any('2 < 1' and 'answer correct people: 0' and 'answer people: 0' in i for i in rows_texts) 
+            )
+
+        # He see the radio button and submit button of second question
+        ans_true1 = self.browser.find_element_by_id('ans_t_2')
+        ans_false1 = self.browser.find_element_by_id('ans_f_2')
+        submit1 = self.browser.find_element_by_id('submit_btn_2')
+
+        # He want to answer question
+        # ...
+
 
         self.fail('Finished the test!')
 

@@ -21,6 +21,28 @@ class HomePageTest(TestCase):
         self.assertEqual(questions.count(), 1)
         self.assertEqual(questions[0].text, '1311 is integer')
         self.assertEqual(questions[0].ans, 'True')
+        self.assertEqual(questions[0].count, 0)
+        self.assertEqual(questions[0].correct_count, 0)
+
+    def test_can_answer_question(self):
+        response = self.client.post('/', data={'question_text':'1311 is integer', 'ans':'True'})
+
+        # answer first question
+        ans_response = self.client.post('/ans/1', data={'ans':'True'})
+
+        q = Question.objects.get(id=1)
+        self.assertEqual(q.text, '1311 is integer')
+        self.assertEqual(q.count, 1)
+        self.assertEqual(q.correct_count, 1)
+
+        # answer first question but incorrect
+        ans_response = self.client.post('/ans/1', data={'ans':'False'})
+
+        q = Question.objects.get(id=1)
+        self.assertEqual(q.text, '1311 is integer')
+        self.assertEqual(q.count, 2)
+        self.assertEqual(q.correct_count, 1)
+
 
 class ModelsTest(TestCase):
 
