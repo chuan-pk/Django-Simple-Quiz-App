@@ -1,33 +1,46 @@
 <html>
 <head>
     <title> Quiz app </title>
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'quiz/css/bootstrap.min.css' %}" />
+
 </head>
-<body>
-    <h1>create question</h1>
-    <form method="POST">
-        <input name="question_text" id="question" placeholder="Enter Question" required></input><br>
-        <input type="radio" name="ans" id="ans_t" value="True" required>True</input><br>
-        <input type="radio" name="ans" id="ans_f" value="False">False</input><br>
+<body style="padding: 24px; color: #424242;">
 
-        <button id="add_btn">Add</button>
-        {% csrf_token %}
-    </form><br>
+    <div class="row">
+        <div class="col-sm-4">
+            <h1>Create question</h1>
+            <form method="POST" class="form-group">
+                <input name="question_text" id="question" placeholder="Enter Question" style="margin: 2px 0px 10px 0px; width: 80%;" required></input><br>
+                <label class="text-muted"> Select answer </label><br>
+                <input type="radio" name="ans" id="ans_t" value="True" style="margin: 2px 0px 10px 0px;" required>True</input><br>
+                <input type="radio" name="ans" id="ans_f" value="False" style="margin: 2px 0px 10px 0px;">False</input><br>
 
-    <h2> Question </h2>
-    <table id="question_table">
-        {% for question in questions%}
-        <tr> 
-            <td><b style="font-size: 20px"> {{ question.text }} </b> <br>  
-            <b>correct answer: {{question.correct_count}}, total answer: {{question.count}}</b>
-                <form method="POST" action="/ans/{{question.id}}">
-                    {% csrf_token %}
-                    <input type="radio" name="ans" id="ans_t_{{question.id}}" value="True" required>True</input><br>
-                    <input type="radio" name="ans" id="ans_f_{{question.id}}" value="False">False</input><br>
-                    <button id="submit_btn_{{question.id}}">Submit</button>
-                </form>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
+                <button id="add_btn" class="btn btn-outline-dark" style="width: 150px;">Add</button>
+                {% csrf_token %}
+            </form>
+        </div>
+
+        <div class="col-sm-8">
+            <h1> Question </h1>
+            <table id="question_table">
+                {% for question in questions%}
+                <tr> 
+                    <td><b style="font-size: 20px"> {{ question.text }} </b> <br>  
+                    <label class="text-success" style="padding: 2px;">correct answer: {{question.correct_count}}</label>
+                    <label class="text-primary" style="color: white; padding: 2px;">total answer: {{question.count}}</label>
+                        <form method="POST" action="/ans/{{question.id}}">
+                            {% csrf_token %}
+                            <input type="radio" name="ans" id="ans_t_{{question.id}}" value="True" style="margin: 0px 4px 18px 12px;" required>True</input>
+                            <input type="radio" name="ans" id="ans_f_{{question.id}}" value="False" style="margin: 0px 4px 18px 12px;">False</input><br>
+                            <button id="submit_btn_{{question.id}}" class="btn btn-outline-dark">Submit</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
 </body>
 </html>
