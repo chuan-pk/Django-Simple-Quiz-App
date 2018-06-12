@@ -57,8 +57,9 @@ class HomePageTest(unittest.TestCase):
         rows = table.find_elements_by_tag_name('tr')
         rows_texts = [row.text for row in rows]
         self.assertTrue(
-            any('1 + 1 = 2' and 'answer correct people: 0' and  'answer people: 0' in i for i in rows_texts)
+            any(all(a in i for a in ['1 + 1 = 2', 'correct answer: 0', 'total answer: 0']) for i in rows_texts)
             )
+
 
         # she see the radio button and submit button of first question
         ans_true1 = self.browser.find_element_by_id('ans_t_1')
@@ -89,7 +90,7 @@ class HomePageTest(unittest.TestCase):
 
         # No one Ans question so Answer count = 0 and correct count = 0
         self.assertTrue(
-            any('1 + 1 = 2' and 'answer correct people: 0' and 'answer people: 0' in i for i in rows_texts)
+            any(all(a in i for a in ['1 + 1 = 2', 'correct answer: 0', 'total answer: 0']) for i in rows_texts)
             )
 
         # she see the radio button and submit button of first question
@@ -98,7 +99,7 @@ class HomePageTest(unittest.TestCase):
         submit1 = self.browser.find_element_by_id('submit_btn_1')
 
         self.assertTrue(
-            any('2 < 1' and 'answer correct people: 0' and 'answer people: 0' in i for i in rows_texts) 
+            any(all(a in i for a in ['2 < 1', 'correct answer: 0', 'total answer: 0']) for i in rows_texts) 
             )
 
         # she see the radio button and submit button of second question
@@ -126,9 +127,12 @@ class HomePageTest(unittest.TestCase):
         rows = table.find_elements_by_tag_name('tr')
         rows_texts = [row.text for row in rows]
 
-        # No one Ans question so Answer count = 0 and correct count = 0
         self.assertTrue(
-            any('1 + 1 = 2' and 'answer correct people: 0' and 'answer people: 0' in i for i in rows_texts)
+            any(all(a in i for a in ['1 + 1 = 2', 'correct answer: 0', 'total answer: 0']) for i in rows_texts)
+            )
+
+        self.assertTrue(
+            any(all(a in i for a in ['2 < 1', 'correct answer: 0', 'total answer: 0']) for i in rows_texts) 
             )
 
         # He see the radio button and submit button of first question
@@ -136,18 +140,31 @@ class HomePageTest(unittest.TestCase):
         ans_false1 = self.browser.find_element_by_id('ans_f_1')
         submit1 = self.browser.find_element_by_id('submit_btn_1')
 
+        # He see the radio button and submit button of second question
+        ans_true2 = self.browser.find_element_by_id('ans_t_2')
+        ans_false2 = self.browser.find_element_by_id('ans_f_2')
+        submit2 = self.browser.find_element_by_id('submit_btn_2')
+
+        # He want to answer first question
+        ans_true1.click()
+        submit1.click()
+
+        question_text = self.browser.find_element_by_id('question')
+        ans_true = self.browser.find_element_by_id('ans_t')
+        ans_false = self.browser.find_element_by_id('ans_f')
+        add_question_button = self.browser.find_element_by_id('add_btn')
+        table = self.browser.find_element_by_id('question_table')
+        rows = table.find_elements_by_tag_name('tr')
+        rows_texts = [row.text for row in rows]
+
+
         self.assertTrue(
-            any('2 < 1' and 'answer correct people: 0' and 'answer people: 0' in i for i in rows_texts) 
+            any(all(a in i for a in ['1 + 1 = 2', 'correct answer: 1', 'total answer: 1']) for i in rows_texts)
             )
 
-        # He see the radio button and submit button of second question
-        ans_true1 = self.browser.find_element_by_id('ans_t_2')
-        ans_false1 = self.browser.find_element_by_id('ans_f_2')
-        submit1 = self.browser.find_element_by_id('submit_btn_2')
-
-        # He want to answer question
-        # ...
-
+        self.assertTrue(
+            any(all(a in i for a in ['2 < 1', 'correct answer: 0', 'total answer: 0']) for i in rows_texts) 
+            )
 
         self.fail('Finished the test!')
 
